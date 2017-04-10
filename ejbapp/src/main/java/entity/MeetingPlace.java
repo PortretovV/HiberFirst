@@ -10,14 +10,16 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "meet_place")
-@Access(AccessType.FIELD)
+@Table(name = "meet_place", schema = "meeting_portal")
+//@Access(AccessType.FIELD)
 public class MeetingPlace implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_meet_place")
     private Integer id;
+
+    private boolean finded;
 
     @Embedded
     private Address address;

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "hobbes")
-@Access(AccessType.PROPERTY)
+@Table(name = "hobbes", schema = "meeting_portal")
+//@Access(AccessType.PROPERTY)
 public class Hobby implements Serializable {
 
     private int idHobby;

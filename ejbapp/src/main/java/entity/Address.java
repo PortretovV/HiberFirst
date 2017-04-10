@@ -1,12 +1,11 @@
 package entity;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-@Access(AccessType.FIELD)
+//@Access(AccessType.FIELD)
 public class Address {
 
     @Column(length = 70)
