@@ -21,13 +21,13 @@ public class MeetingPlace implements Serializable {
 
     private boolean finded;
 
-    @Embedded
-    private Address address;
 //    Address аннотирован не как сущность, а как встраиваемый объект. Аннотация @Embeddable определяет, что Address
 //    может быть встроен в иной класс-сущность (или иной встраиваемый объект).
 //    С другой стороны, для сущности Customer приходится использовать аннотацию
 //    @Embedded, чтобы определить, что Address является постоянным атрибутом, который
 //    будет сохранен как внутренняя часть и станет совместно использовать его идентификатор
+    @Embedded
+    private Address address;
 
     @Enumerated(EnumType.STRING)
     private MeetPlace meetPlace;
