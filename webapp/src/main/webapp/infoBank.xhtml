@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+</head>
+<body>
+<h2>Центрабанк РФ</h2>
+<h:form>
+    <c:set value="#{centralBank.currentBank}" var="bank"/>
+    <h:graphicImage value="#{bank.label}" height="200" width="200"/><br/>
+    Название: <h:outputText value="#{bank.name}"/><br/>
+    <c:choose>
+        <c:when test="#{bank.licence == true}">
+            Лицензия: Присутствует (<h:commandLink value="Отобрать лицензию" action="#{centralBank.depriveLicence(bank)}"/>)
+        </c:when>
+        <c:otherwise>
+            Лицензия: Отсутствует (<h:commandLink value="Предоставить лицензию" action="#{centralBank.giveLicence(bank)}"/>)
+        </c:otherwise>
+    </c:choose>
+    <br/><br/>
+    <c:forEach items="#{bank.clients}" var="client">
+        Имя: <h:outputText value="#{client.firstName}"/><br/>
+        Фамилия: <h:outputText value="#{client.lastName}"/><br/>
+        Дата рождения: <h:outputText value="#{client.birthday}"/><br/>
+        Пол: <h:outputText value="#{client.gender}"/><br/>
+    </c:forEach>
+</h:form>
+</body>
+</html>

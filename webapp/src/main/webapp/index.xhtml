@@ -4,14 +4,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <head>
-
     </head>
     <body>
-        <h:outputLabel value="Сайт работает, радуйтесь"/>
+        <h2>Центрабанк РФ</h2>
         <h:form>
-            <h:commandButton action="#{transferBean.createDB()}" value="Создать"/>
+            <h:commandLink value="Добавить банк" action="#{centralBank.addBank}"/><br/>
+            <c:forEach items="#{centralBank.allBanks}" var="bank">
+
+                <h:graphicImage value="resources/images/#{bank.label}"  height="200" width="200"/>
+                <br/>
+                <h:commandLink action="#{centralBank.infoBank(bank.id)}">
+                    Название банка: <h:outputText value="#{bank.name}"/>
+                </h:commandLink>
+                <br/>
+                <c:choose>
+                    <c:when test="#{bank.licence == true}">
+                        Лицензия: есть (<h:commandLink value="Отобрать лицензию" action="#{centralBank.depriveLicence(bank)}"/>)
+                    </c:when>
+                    <c:otherwise>
+                        Лицензия: нет (<h:commandLink value="Предоставить лицензию" action="#{centralBank.giveLicence(bank)}"/>)
+                    </c:otherwise>
+                </c:choose>
+                <br/>
+                <h:commandLink value="Изменить банк" action="#{centralBank.updateBank(bank.id)}"/>
+                <br/><br/>
+            </c:forEach>
         </h:form>
     </body>
 
