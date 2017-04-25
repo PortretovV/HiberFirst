@@ -7,8 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "persons", schema = "meeting_portal")
-//@Access(AccessType.FIELD)
+@Table(name = "persons", schema = "meeting_portal_2")
 public class Person implements Serializable {
 
     @Id
@@ -27,23 +26,34 @@ public class Person implements Serializable {
     private Date birthday;
 
     @Column(name = "gender")
-    private Byte gender;
+    private Boolean gender;
 
     @Transient
     private Integer age;
 
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private List<CreditCard> creditCards = new ArrayList<>();
 
-    @ManyToMany(targetEntity = Hobby.class, fetch = FetchType.LAZY)
-    @JoinTable(name = "pers_hobbys",
-            joinColumns = @JoinColumn(name = "id_person"),
-            inverseJoinColumns = @JoinColumn(name = "id_hobby"))
-    List<Hobby> hobbies = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "id_bank")
+    private Bank bank;
 
-    public int getId() {
+
+    public Person() {}
+
+    public Person(String firstName, String lastName, Date birthday, Boolean gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.gender = gender;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,6 +81,14 @@ public class Person implements Serializable {
         this.birthday = birthday;
     }
 
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
+
     public Integer getAge() {
         return age;
     }
@@ -78,4 +96,21 @@ public class Person implements Serializable {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    public List<CreditCard> getCreditCards() {
+        return creditCards;
+    }
+
+    public void setCreditCards(List<CreditCard> creditCards) {
+        this.creditCards = creditCards;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
 }

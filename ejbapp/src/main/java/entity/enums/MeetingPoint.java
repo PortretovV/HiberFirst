@@ -3,7 +3,7 @@ package entity.enums;
 /**
  * Created by VP on 09.04.2017.
  */
-public enum MeetPlace {
+public enum MeetingPoint {
     Theatre,
     Restaurant,
     Cinema,

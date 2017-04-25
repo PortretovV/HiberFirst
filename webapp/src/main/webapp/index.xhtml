@@ -5,7 +5,15 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Сайт работает, радуйтесь"/>
-</f:view>
+    <head>
+
+    </head>
+    <body>
+        <h:outputLabel value="Сайт работает, радуйтесь"/>
+        <h:form>
+            <h:commandButton action="#{transferBean.createDB()}" value="Создать"/>
+        </h:form>
+    </body>
+
+
 </html>
