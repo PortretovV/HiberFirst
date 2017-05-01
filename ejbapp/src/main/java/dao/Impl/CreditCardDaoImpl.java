@@ -2,10 +2,12 @@ package dao.Impl;
 
 import dao.CreditCardDao;
 import entity.CreditCard;
+import entity.Person;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -19,13 +21,10 @@ public class CreditCardDaoImpl implements CreditCardDao {
     EntityManager em;
 
     @Override
-    public CreditCard findById(int id) {
-        return null;
-    }
-
-    @Override
-    public List<CreditCard> findAll() {
-        return null;
+    public CreditCard findByCardNumber(String cardNumber) {
+        TypedQuery<CreditCard> query = em.createNamedQuery("CreditCard.findByCardNumber",CreditCard.class);
+        query.setParameter("cardNumber",cardNumber);
+        return query.getSingleResult();
     }
 
     @Override

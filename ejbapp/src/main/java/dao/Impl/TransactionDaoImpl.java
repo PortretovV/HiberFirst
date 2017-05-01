@@ -1,6 +1,7 @@
 package dao.Impl;
 
 import dao.TransactionDao;
+import entity.CreditCard;
 import entity.Transaction;
 
 import javax.ejb.Stateless;
@@ -38,6 +39,23 @@ public class TransactionDaoImpl implements TransactionDao {
             return transaction;
         }
         return null;
+    }
+
+    public Transaction cashTransfer(Transaction transaction){
+        CreditCard sender = transaction.getSenderCard();
+        CreditCard receiver = transaction.getReceiverCard();
+
+        double newSenderSum = sender.getSumm_on_card() - transaction.getSum();
+        double newReceiverSum = receiver.getSumm_on_card() + transaction.getSum();
+
+        sender.setSumm_on_card(newSenderSum);
+        receiver.setSumm_on_card(newReceiverSum);
+        em.merge(sender);
+        em.merge(receiver);
+
+        transaction.setConfirmed(true);
+        transaction = em.merge(transaction);
+        return transaction;
     }
 
     @Override

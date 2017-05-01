@@ -15,4 +15,5 @@ public interface TransactionDao {
     List<Transaction> findAll();
     Transaction save(Transaction transaction);
     void delete(Transaction transaction);
+    Transaction cashTransfer(Transaction transaction);
 }

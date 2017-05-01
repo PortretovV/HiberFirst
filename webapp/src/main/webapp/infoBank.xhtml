@@ -24,10 +24,19 @@
     <br/><br/>
     <c:forEach items="#{bank.clients}" var="client">
         <h:commandLink action="#{centralBank.bankUser(client.id)}">
-            <h:outputText value="#{client.firstName}"/> <h:outputText value="#{client.lastName}"/>
+            <h:outputText value="#{client.firstName} #{client.lastName}"/>
         </h:commandLink><br/>
         Дата рождения: <h:outputText value="#{client.birthday}"/><br/>
-        Пол: <h:outputText value="#{client.gender}"/><br/>
+        Пол:
+        <c:choose>
+            <c:when test="#{client.gender == true}">
+                Мужской
+            </c:when>
+            <c:otherwise>
+                Женский
+            </c:otherwise>
+        </c:choose>
+        <br/>
     </c:forEach>
 </h:form>
 </body>

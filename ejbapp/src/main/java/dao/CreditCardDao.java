@@ -11,8 +11,7 @@ import java.util.List;
 
 @Local
 public interface CreditCardDao {
-    CreditCard findById(int id);
-    List<CreditCard> findAll();
+    CreditCard findByCardNumber(String cardNumber);
     CreditCard save(CreditCard card);
     void delete(CreditCard card);
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+</head>
+<body>
+<h1 style="align-content: center; color: forestgreen">
+    <h:outputText value="#{transactionEJB.infoTransact}"/>
+</h1>
+<c:set value="#{centralBank.person}" var="person"/>
+<h2 style="color: blue">Пользователь <h:outputText value="#{person.bank.name}"/> </h2>
+<h:form>
+    <h:outputText value="#{person.firstName} #{person.lastName}"/><br/>
+    Дата рождения: <h:outputText value="#{person.birthday}"/><br/>
+    Пол:
+    <c:choose>
+        <c:when test="#{person.gender}">
+            Мужской
+        </c:when>
+        <c:otherwise>
+            Женский
+        </c:otherwise>
+    </c:choose>
+    <br/><br/>
+    <h:commandLink value="Добавить новую карту" action="#{centralBank.addCard}"/><br/><br/>
+    <h4 style="color: gold">Имеющиеся карты:</h4>
+    <c:forEach items="#{person.creditCards}" var="card">
+
+        <h:commandLink value="Удалить карту" action="#{centralBank.deleteCard(card)}"/>|
+        <h:commandLink value="Изменить карту" action="#{centralBank.updateCard(card)}"/>|
+        <h:commandLink value="Перевести деньги" action="#{centralBank.cardTransaction(card)}"/><br/>
+        Номер карты: <h:outputText value="#{card.cardNumber}"/><br/>
+        Пользователь карты:<h:outputText value="#{card.user.firstName} #{card.user.lastName}"/><br/>
+        Секретный код: <h:outputText value="#{card.securityCode}"/><br/>
+        <h5 style="color: crimson">Сумма счета:<h:outputText value="#{card.summ_on_card}"/></h5>
+
+        <h4 style="color: blueviolet">Транзакции по карте:</h4>
+
+        <c:forEach items="#{card.transactions}" var="transaction">
+            Id транзакции: <h:outputText value="#{transaction.id}"/><br/>
+            Перечисление: С карты:<h:outputText value="#{transaction.senderCard.cardNumber}"/> --->
+            На карту:<h:outputText value="#{transaction.receiverCard.cardNumber}"/><br/>
+            Сумма: <h:outputText value="#{transaction.sum}"/><br/>
+            Подтверждена:
+            <c:choose>
+                <c:when test="#{transaction.confirmed == true}">
+                    Да
+                </c:when>
+                <c:otherwise>
+                    Нет (<h:commandLink value="Подтвердить" action="#{centralBank.confirmTransaction(transaction)}"/>)
+                </c:otherwise>
+            </c:choose>
+            <br/><br/>
+
+        </c:forEach>
+        <c:forEach items="#{card.transactions1}" var="transaction">
+            Id транзакции: <h:outputText value="#{transaction.id}"/><br/>
+            Получение: С карты:<h:outputText value="#{transaction.senderCard.cardNumber}"/> --->
+            На карту:<h:outputText value="#{transaction.receiverCard.cardNumber}"/><br/>
+            Сумма: <h:outputText value="#{transaction.sum}"/><br/>
+            Подтверждена:
+            <c:choose>
+                <c:when test="#{transaction.confirmed == true}">
+                    Да
+                </c:when>
+                <c:otherwise>
+                    Нет (<h:commandLink value="Подтвердить" action="#{centralBank.confirmTransaction(transaction)}"/>)
+                </c:otherwise>
+            </c:choose>
+            <br/><br/>
+        </c:forEach>
+
+    </c:forEach>
+</h:form>
+</body>
+</html>

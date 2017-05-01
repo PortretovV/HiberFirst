@@ -15,7 +15,10 @@ public class Transaction implements Serializable {
     private Integer id;
 
     @Column(name = "sum")
-    private int sum;
+    private double sum;
+
+    @Column(name = "confirmed")
+    private boolean confirmed;
 
     @ManyToOne
     @JoinColumn(name = "senderCard")
@@ -31,8 +34,9 @@ public class Transaction implements Serializable {
         this.sum = sum;
     }
 
-    public Transaction(int sum, CreditCard senderCard, CreditCard receiverCard) {
+    public Transaction(double sum, boolean confirmed, CreditCard senderCard, CreditCard receiverCard) {
         this.sum = sum;
+        this.confirmed = confirmed;
         this.senderCard = senderCard;
         this.receiverCard = receiverCard;
     }
@@ -45,12 +49,20 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
-    public int getSum() {
+    public double getSum() {
         return sum;
     }
 
-    public void setSum(int sum) {
+    public void setSum(double sum) {
         this.sum = sum;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public CreditCard getSenderCard() {
