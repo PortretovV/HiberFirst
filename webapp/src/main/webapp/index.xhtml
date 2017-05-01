@@ -14,7 +14,7 @@
             <h:commandLink value="Добавить банк" action="#{centralBank.addBank}"/><br/>
             <c:forEach items="#{centralBank.allBanks}" var="bank">
 
-                <h:graphicImage value="resources/images/#{bank.label}"  height="200" width="200"/>
+                <h:graphicImage value="#{bank.label}"  height="200" width="300"/>
                 <br/>
                 <h:commandLink action="#{centralBank.infoBank(bank.id)}">
                     Название банка: <h:outputText value="#{bank.name}"/>

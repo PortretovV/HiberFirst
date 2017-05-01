@@ -6,6 +6,7 @@ import entity.Person;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -20,8 +21,18 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public Person findById(int id) {
-        return em.find(Person.class, id);
+        TypedQuery<Person> query = em.createNamedQuery("Person.findById",Person.class);
+        query.setParameter("id",id);
+        return query.getSingleResult();
     }
+
+    @Override
+    public Person findByIdBank(int id) {
+        TypedQuery<Person> query = em.createNamedQuery("Person.findByIdBank",Person.class);
+        query.setParameter("id",id);
+        return query.getSingleResult();
+    }
+
 
     @Override
     public List<Person> findAll() {

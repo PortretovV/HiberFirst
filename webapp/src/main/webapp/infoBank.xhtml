@@ -23,8 +23,9 @@
     </c:choose>
     <br/><br/>
     <c:forEach items="#{bank.clients}" var="client">
-        Имя: <h:outputText value="#{client.firstName}"/><br/>
-        Фамилия: <h:outputText value="#{client.lastName}"/><br/>
+        <h:commandLink action="#{centralBank.bankUser(client.id)}">
+            <h:outputText value="#{client.firstName}"/> <h:outputText value="#{client.lastName}"/>
+        </h:commandLink><br/>
         Дата рождения: <h:outputText value="#{client.birthday}"/><br/>
         Пол: <h:outputText value="#{client.gender}"/><br/>
     </c:forEach>

@@ -8,6 +8,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "persons", schema = "meeting_portal_2")
+@NamedQueries({
+        @NamedQuery(name = "Person.findByIdBank", query = "SELECT distinct p FROM Person p left join fetch p.creditCards c" +
+                " left join fetch p.bank b where b.id = :id"),
+        @NamedQuery(name = "Person.findById", query = "SELECT distinct p FROM Person p left join fetch p.creditCards c" +
+                " left join fetch p.bank b where p.id = :id"),
+        @NamedQuery(name = "Person.findAll", query = "select distinct p from Person p left join fetch p.creditCards c left join fetch p.bank b")
+})
 public class Person implements Serializable {
 
     @Id

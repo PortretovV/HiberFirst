@@ -8,6 +8,7 @@ import java.util.List;
 @Local
 public interface PersonDao {
     Person findById(int id);
+    Person findByIdBank(int id);
     List<Person> findAll();
     Person save(Person person);
     void delete(Person person);
